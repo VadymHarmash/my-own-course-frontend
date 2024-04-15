@@ -1,0 +1,64 @@
+$darkgrey-color: #282828;
+$green-color: #029e43;
+$lightgrey-color: #ebe8e8;
+
+%button-style {
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+        background-color: $green-color;
+        color: $lightgrey-color;
+    }
+}
+
+.header {
+    margin: 40px 0;
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 50px;
+    }
+
+    &__logo {
+        color: $green-color;
+        font-size: 25px;
+    }
+
+    &__navbar {
+        margin-right: 100px;
+
+        ul {
+            display: flex;
+            gap: 25px;
+        }
+
+        &__link {
+            text-decoration: none;
+            color: $darkgrey-color;
+            font-weight: 500;
+            transition: .3s;
+            font-size: 1.25em;
+
+            &:hover {
+                color: $green-color;
+            }
+        }
+    }
+
+    &__signPanel__signButton {
+        @extend %button-style;
+
+        &:first-child {
+            border-radius: 30px 0 0 30px;
+        }
+
+        &:last-child {
+            border-radius: 0 30px 30px 0;
+        }
+    }
+}
