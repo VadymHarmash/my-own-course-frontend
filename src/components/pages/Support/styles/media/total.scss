@@ -1,0 +1,68 @@
+$green-color: #029e43;
+$dark-green-color: #06984375;
+
+.support {
+    h1 {
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+
+        thead tr th {
+            &:first-child {
+                border-radius: 20px 0 0 0;
+            }
+
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+
+        tbody tr td:last-child {
+            border-radius: 0 0 20px 0;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: center;
+            border: 2px solid $green-color;
+        }
+
+        th {
+            background-color: $dark-green-color;
+            width: 25%;
+        }
+
+        td div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        td div img {
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+
+        td div span {
+            font-weight: bold;
+        }
+
+        td a {
+            text-decoration: none;
+            color: #000000;
+            transition: color .3s;
+        }
+
+        td a:hover {
+            color: $green-color;
+        }
+    }
+}
