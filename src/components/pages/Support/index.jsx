@@ -25,7 +25,7 @@ export default function Support() {
                             <tr>
                                 {contacts.map(contact => (
                                     <td key={contact.service}>
-                                        <a href={contact.link} target='_blank'>{contact.text}</a>
+                                        <a href={contact.link} target='_blank'>{contact.text} (натисніть)</a>
                                     </td>
                                 ))}
                             </tr>

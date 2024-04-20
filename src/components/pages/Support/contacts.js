@@ -23,7 +23,7 @@ export const contacts = [
         text: 'vadym_harmash_'
     },
     {
-        service: 'Telephone',
+        service: 'Телефон',
         icon: telephone,
         link: 'tel:+380955981258',
         text: '+380955981258'
