@@ -6,7 +6,13 @@ export default function Statistics() {
         <div className={styles.statistics}>
             <div className="container">
                 <div className={styles.statistics__wrapper}>
-                    Stats
+                    <div className={styles.statistics__name}>
+                        <h2>Name Surname</h2>
+                    </div>
+                    <div className={styles.statistics__progress}>
+                        <span>Курсів пройдено: 2/11</span>
+                        <span>Поточний курс: </span>
+                    </div>
                 </div>
             </div>
         </div>

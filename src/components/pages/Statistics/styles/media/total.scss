@@ -1,0 +1,13 @@
+.statistics {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+    }
+    &__progress {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
