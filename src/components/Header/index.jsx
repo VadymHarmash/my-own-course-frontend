@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './header.module.scss'
 import { NavLink } from 'react-router-dom'
+import Login from '../Login'
 
 export default function Header() {
+    const [isLogin, setIsLogin] = useState(false)
+    const [isSignUp, setIsSignUp] = useState(false)
+    const [isSignIn, setIsSignIn] = useState(false)
+
     const navLinks = [
         { to: '', text: 'Home' },
         { to: 'statistics', text: 'Personal statistics' },
@@ -27,11 +32,18 @@ export default function Header() {
                         </ul>
                     </nav>
                     <div className={styles.header__signPanel}>
-                        <button className={styles.header__signPanel__signButton}>Sign Up</button>
-                        <button className={styles.header__signPanel__signButton}>Sign In</button>
+                        <button className={styles.header__signPanel__signButton} onClick={() => {
+                            setIsSignUp(true)
+                            setIsLogin(true)
+                        }}>Sign Up</button>
+                        <button className={styles.header__signPanel__signButton} onClick={() => {
+                            setIsSignIn(true)
+                            setIsLogin(true)
+                        }}>Sign In</button>
                     </div>
                 </div>
             </div>
+            {isLogin && <Login isSignUp={isSignUp} setIsSignUp={setIsSignUp} isSignIn={isSignIn} setIsSignIn={setIsSignIn} setIsLogin={setIsLogin} />}
         </div>
     )
 }
