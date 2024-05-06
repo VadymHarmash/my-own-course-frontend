@@ -1,4 +1,6 @@
 $grey-color: #A1A1A1;
+$green-color: #029e43;
+$white-color: #FFFFFF;
 
 .login {
     position: fixed;
@@ -73,11 +75,20 @@ $grey-color: #A1A1A1;
             flex-direction: column;
             gap: 5px;
         }
-        .error{
-            color: #FF0000;
+        input{
+            border: 1px $green-color solid;
         }
     }
     button{
-        margin-top: 15px;
+        margin-top: 25px;
+        padding: 10px;
+        border: 2px solid $green-color;
+        border-radius: 20px 0 20px 0;
+        transition: all .3s;
+        cursor: pointer;
+        &:hover{
+            background-color: $green-color;
+            color: $white-color;
+        }
     }
 }
