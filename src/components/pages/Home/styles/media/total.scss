@@ -45,6 +45,10 @@ $lightgrey-color: #ebe8e8;
         overflow-y: auto;
         @extend %scroll;
 
+        &__message{
+            padding: 10px;
+        }
+
         ul {
             display: flex;
             flex-direction: column;

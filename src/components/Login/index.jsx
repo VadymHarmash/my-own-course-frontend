@@ -1,32 +1,73 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from './styles/index.module.scss'
+import { LoginContext } from '../../context/Context'
 
 export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, setIsLogin }) {
     const [name, setName] = useState('')
     const [surname, setSurname] = useState('')
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+
+    const loginContext = useContext(LoginContext)
 
     const isAllFieldsFilled = () => {
         return name.trim() !== '' && surname.trim() !== '' && phone.trim() !== '' && password.trim() !== ''
     }
 
-    const handleSignUp = () => {
+    const userData = {
+        name: name,
+        password: password,
+        mobile: phone,
+        isAdmin: false
+    }
+
+    const handleSignUp = async () => {
         if (!isAllFieldsFilled()) {
             return
         }
-        console.log(name, surname, phone, password)
+        try {
+            await fetch("http://localhost:5000/users", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            })
+                .then((response) => response.json())
+                .then((result) => console.log(result))
+        } catch (error) {
+            console.error('Error:', error)
+        }
         setIsSignUp(false)
         setIsLogin(false)
     }
 
-    const handleSignIn = () => {
+    const handleSignIn = async () => {
         if (!phone || !password) {
-            return
+            return;
         }
-        console.log(phone, password)
-        setIsSignIn(false)
-        setIsLogin(false)
+        try {
+            await fetch("http://localhost:5000/users", {
+                method: "GET",
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    const user = data.find((user) => user.password === password && user.mobile === phone);
+                    if (user) {
+                        loginContext.login()
+                        loginContext.setLoggedUser(user)
+                        setErrorMessage('')
+                        setIsSignIn(false)
+                        setIsLogin(false)
+                    } else {
+                        setErrorMessage('Невірний номер телефону або пароль')
+                    }
+                });
+        } catch (error) {
+            console.error('Error:', error);
+            setErrorMessage('Помилка під час входу');
+        }
     }
 
     return (
@@ -44,7 +85,7 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
                                 setIsLogin(false);
                             }}>X</span>
                         </div>
-                        <div className={styles.login__body}>
+                        <form onSubmit={handleSignUp} className={styles.login__body}>
                             <label>
                                 Ім'я
                                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
@@ -61,8 +102,8 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
                                 Пароль
                                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                             </label>
-                        </div>
-                        <button onClick={handleSignUp} disabled={!isAllFieldsFilled()}>Зареєструватися</button>
+                            <button type='submit' disabled={!isAllFieldsFilled()}>Зареєструватися</button>
+                        </form>
                     </div>
                 )}
                 {isSignIn && (
@@ -82,10 +123,15 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
                                 Номер телефону
                                 <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
                             </label>
+                            {/* <span>Некоректний номер телефону</span> */}
                             <label>
                                 Пароль
                                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                             </label>
+                            {errorMessage && (
+                                <div className={styles.error}>{errorMessage}</div>
+                            )}
+                            {/* <span>Некоректний пароль</span> */}
                         </div>
                         <button onClick={handleSignIn} disabled={!phone || !password}>Увійти</button>
                     </div>
