@@ -45,6 +45,10 @@ $lightgrey-color: #ebe8e8;
         overflow-y: auto;
         @extend %scroll;
 
+        .completed {
+            text-decoration: line-through;
+        }
+
         &__message{
             padding: 10px;
         }

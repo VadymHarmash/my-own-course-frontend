@@ -55,7 +55,10 @@ export default function Header() {
                             <div className={styles.header__username}>
                                 <p className={styles.header__username__name} onClick={() => setIsLogoutCalled(true)}>{loginContext.loggedInUser.name}</p>
                                 {isLogoutCalled && 
-                                    <div onClick={() => loginContext.logout()} ref={logoutRef} className={styles.header__username__logoutButton}>Logout</div>
+                                    <div onClick={() => {
+                                        loginContext.logout()
+                                        setIsLogoutCalled(false)
+                                    }} ref={logoutRef} className={styles.header__username__logoutButton}>Logout</div>
                                 }
                             </div>
                         )

@@ -19,7 +19,8 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
         name: name,
         password: password,
         mobile: phone,
-        isAdmin: false
+        isAdmin: false,
+        completedCourses: [1, 2]
     }
 
     const handleSignUp = async () => {

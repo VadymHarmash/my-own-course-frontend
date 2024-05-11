@@ -1,30 +1,26 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styles from './home.module.scss';
-import { LoginContext } from '../../../context/Context'
+import { CoursesContext, LoginContext } from '../../../context/Context'
 
 export default function Home() {
-    const [activeCourse, setActiveCourse] = useState(1);
-    const [activeText, setActiveText] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [courseTitles, setCourseTitles] = useState([]);
-    const [data, setData] = useState([])
+    const [activeCourse, setActiveCourse] = useState(1)
+    const [activeText, setActiveText] = useState(null)
+    const [loading, setLoading] = useState(true)
+    const [courseTitles, setCourseTitles] = useState([])
 
     const loginContext = useContext(LoginContext)
+    const coursesContext = useContext(CoursesContext)
 
     useEffect(() => {
-        fetch("/courses", {
-            method: "GET"
-        })
-            .then(response => response.json())
-            .then(data => setData(data))
-    }, [])
+        coursesContext?.coursesInit()
+    }, [coursesContext])
 
     useEffect(() => {
-        const foundText = data && data.find((item) => item.id === activeCourse);
+        const foundText = coursesContext.coursesData && coursesContext.coursesData.find((item) => item.id === activeCourse);
         setActiveText(foundText);
         setLoading(false);
-        setCourseTitles(data && data.map(course => course.title));
-    }, [activeCourse, data])
+        setCourseTitles(coursesContext.coursesData && coursesContext.coursesData.map(course => course.title));
+    }, [activeCourse, coursesContext.coursesData])
 
     return (
         <div className={styles.home}>
@@ -34,15 +30,19 @@ export default function Home() {
                         {loginContext.isLoggedIn ?
                             (
                                 <ul>
-                                    {courseTitles.map((title, index) => (
-                                        <li
-                                            key={index}
-                                            className={index + 1 === activeCourse ? styles.active : ''}
-                                            onClick={() => setActiveCourse(index + 1)}
-                                        >
-                                            {index + 1}. {title}
-                                        </li>
-                                    ))}
+                                    {courseTitles.map((title, index) => {
+                                        const courseId = index + 1;
+                                        const isCompleted = loginContext.isLoggedIn && loginContext.loggedInUser.completedCourses.includes(courseId);
+                                        return (
+                                            <li
+                                                key={index}
+                                                className={`${index + 1 === activeCourse ? styles.active : ''} ${isCompleted ? styles.completed : ''}`}
+                                                onClick={() => setActiveCourse(courseId)}
+                                            >
+                                                {index + 1}. {title}
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             )
                             :
