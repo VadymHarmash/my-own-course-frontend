@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import styles from './home.module.scss';
 import { CoursesContext, LoginContext } from '../../../context/Context'
+import Catalog from './Catalog'
+import SiteInfo from './SiteInfo'
+import Admin from './admin';
 
 export default function Home() {
     const [activeCourse, setActiveCourse] = useState(1)
@@ -26,57 +29,19 @@ export default function Home() {
         <div className={styles.home}>
             <div className="container">
                 <div className={styles.home__wrapper}>
-                    <nav className={styles.home__catalog}>
-                        {loginContext.isLoggedIn ?
-                            (
-                                <ul>
-                                    {courseTitles.map((title, index) => {
-                                        const courseId = index + 1;
-                                        const isCompleted = loginContext.isLoggedIn && loginContext.loggedInUser.completedCourses.includes(courseId);
-                                        return (
-                                            <li
-                                                key={index}
-                                                className={`${index + 1 === activeCourse ? styles.active : ''} ${isCompleted ? styles.completed : ''}`}
-                                                onClick={() => setActiveCourse(courseId)}
-                                            >
-                                                {index + 1}. {title}
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            )
-                            :
-                            (
-                                <p className={styles.home__catalog__message}>Будь ласка, увійдіть у ваш обліковий запис, щоб почати навчання</p>
-                            )
-                        }
-                    </nav>
-                    <div className={styles.home__siteInfo__container}>
-                        {loginContext.isLoggedIn ?
-                            (
-                                loading ? (
-                                    <p>Loading...</p>
-                                ) : (
-                                    <>
-                                        {activeText ? (
-                                            <>
-                                                <h1>{activeText.title}</h1>
-                                                <p>Вміст ...</p>
-                                            </>
-                                        ) : (
-                                            <p>No text found for this course.</p>
-                                        )}
-                                    </>
-                                )
-                            )
-                            :
-                            (
-                                <h1 className={styles.home__siteInfo__message}>Будь ласка, увійдіть у ваш обліковий запис, щоб почати навчання</h1>
-                            )
-                        }
-                    </div>
+                    {loginContext.loggedInUser && loginContext.loggedInUser.isAdmin === true ?
+                        (
+                            <Admin styles={styles} coursesContext={coursesContext} />
+                        )
+                        :
+                        (
+                            <>
+                                <Catalog styles={styles} loginContext={loginContext} courseTitles={courseTitles} activeCourse={activeCourse} setActiveCourse={setActiveCourse} />
+                                <SiteInfo styles={styles} loginContext={loginContext} loading={loading} activeText={activeText} activeCourse={activeCourse} />
+                            </>
+                        )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

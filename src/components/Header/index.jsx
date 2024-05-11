@@ -28,10 +28,10 @@ export default function Header() {
     }, [])
 
     const navLinks = [
-        { to: '', text: 'Home' },
-        { to: 'statistics', text: 'Personal statistics' },
-        { to: 'about', text: 'About us' },
-        { to: 'support', text: 'Support and Contact' },
+        { to: '', text: 'Головна сторінка' },
+        { to: 'statistics', text: 'Статистика' },
+        { to: 'about', text: 'Про нас' },
+        { to: 'support', text: 'Підтримка і контакти' },
     ]
 
     return (
@@ -58,7 +58,7 @@ export default function Header() {
                                     <div onClick={() => {
                                         loginContext.logout()
                                         setIsLogoutCalled(false)
-                                    }} ref={logoutRef} className={styles.header__username__logoutButton}>Logout</div>
+                                    }} ref={logoutRef} className={styles.header__username__logoutButton}>Вийти</div>
                                 }
                             </div>
                         )
@@ -68,11 +68,11 @@ export default function Header() {
                                 <button className={styles.header__signPanel__signButton} onClick={() => {
                                     setIsSignUp(true)
                                     setIsLogin(true)
-                                }}>Sign Up</button>
+                                }}>Реєстрація</button>
                                 <button className={styles.header__signPanel__signButton} onClick={() => {
                                     setIsSignIn(true)
                                     setIsLogin(true)
-                                }}>Sign In</button>
+                                }}>Ввійти</button>
                             </div>
                         )
                     }

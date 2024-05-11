@@ -20,7 +20,7 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
         password: password,
         mobile: phone,
         isAdmin: false,
-        completedCourses: [1, 2]
+        completedCourses: []
     }
 
     const handleSignUp = async () => {

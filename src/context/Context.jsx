@@ -32,15 +32,19 @@ export default function Context({ children }) {
 
     // courses Context
 
-    const coursesInit = () => {
-        fetch("/courses", {
-            method: "GET"
-        })
-            .then(response => response.json())
-            .then(data => {
-                const sortedData = data.sort((a, b) => a.id - b.id)
-                setCoursesData(sortedData)
+    const coursesInit = async () => {
+        try{
+            await fetch("/courses", {
+                method: "GET"
             })
+                .then(response => response.json())
+                .then(data => {
+                    const sortedData = data.sort((a, b) => a.id - b.id)
+                    setCoursesData(sortedData)
+                })
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const coursesValue = {
