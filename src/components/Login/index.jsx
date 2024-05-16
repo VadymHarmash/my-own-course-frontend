@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styles from './styles/index.module.scss'
 import { LoginContext } from '../../context/Context'
 
@@ -10,6 +10,10 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
     const [errorMessage, setErrorMessage] = useState('')
 
     const loginContext = useContext(LoginContext)
+
+    // useEffect(() => {
+    //     loginContext.checkLoggedUser()
+    // }, [loginContext])
 
     const isAllFieldsFilled = () => {
         return name.trim() !== '' && surname.trim() !== '' && phone.trim() !== '' && password.trim() !== ''
@@ -28,7 +32,7 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
             return
         }
         try {
-            await fetch("http://localhost:5000/users", {
+            await fetch("/users", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -49,7 +53,7 @@ export default function Login({ isSignUp, setIsSignUp, isSignIn, setIsSignIn, se
             return;
         }
         try {
-            await fetch("http://localhost:5000/users", {
+            await fetch("/users", {
                 method: "GET",
             })
                 .then((response) => response.json())

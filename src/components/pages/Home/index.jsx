@@ -16,7 +16,7 @@ export default function Home() {
 
     useEffect(() => {
         coursesContext?.coursesInit()
-    }, [coursesContext])
+    }, [])
 
     useEffect(() => {
         const foundText = coursesContext.coursesData && coursesContext.coursesData.find((item) => item.id === activeCourse);

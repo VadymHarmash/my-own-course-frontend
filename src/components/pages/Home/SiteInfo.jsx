@@ -1,13 +1,21 @@
 import React from 'react';
 
 export default function SiteInfo({ styles, loginContext, loading, activeText, activeCourse }) {
-    const completeCourse = () => {
-        if (loginContext.isLoggedIn && activeCourse && !loginContext.loggedInUser.completedCourses.includes(activeCourse)) {
-            const updatedCompletedCourses = [...loginContext.loggedInUser.completedCourses, activeCourse];
-            loginContext.setLoggedUser({
-                ...loginContext.loggedInUser,
-                completedCourses: updatedCompletedCourses
-            });
+    const completeCourse = async () => {
+        const response = await fetch(`http://localhost:5000/users/${loginContext.loggedInUser._id}/completedCourses`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ courseId: activeCourse })
+        });
+
+        if (response.ok) {
+            const updatedUser = await response.json()
+            loginContext.setLoggedUser(updatedUser)
+            console.log(updatedUser)
+        } else {
+            console.error('Error in course completing')
         }
     };
 

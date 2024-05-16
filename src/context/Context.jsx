@@ -16,10 +16,21 @@ export default function Context({ children }) {
 
     const logout = () => {
         setIsLoggedIn(false)
+        // localStorage.removeItem('loggedInUser')
     }
 
+    // const checkLoggedUser = () => {
+    //     const loggedInUser = localStorage.getItem('loggedInUser');
+    //     if (loggedInUser) {
+    //         const user = JSON.parse(loggedInUser)
+    //         login()
+    //         setLoggedUser(user)
+    //     }
+    // }
+
     const setLoggedUser = (user) => {
-        setLoggedInUser(user)
+        setLoggedInUser(user);
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
     }
 
     const loginValue = {
@@ -27,7 +38,8 @@ export default function Context({ children }) {
         logout,
         isLoggedIn,
         setLoggedUser,
-        loggedInUser
+        loggedInUser,
+        // checkLoggedUser
     }
 
     // courses Context
