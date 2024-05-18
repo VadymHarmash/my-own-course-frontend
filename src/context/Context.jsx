@@ -61,7 +61,8 @@ export default function Context({ children }) {
 
     const coursesValue = {
         coursesInit,
-        coursesData
+        coursesData,
+        setCoursesData
     }
 
     return (

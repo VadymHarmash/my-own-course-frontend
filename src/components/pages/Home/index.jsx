@@ -3,7 +3,7 @@ import styles from './home.module.scss';
 import { CoursesContext, LoginContext } from '../../../context/Context'
 import Catalog from './Catalog'
 import SiteInfo from './SiteInfo'
-import Admin from './admin';
+import Admin from './Admin';
 
 export default function Home() {
     const [activeCourse, setActiveCourse] = useState(1)
