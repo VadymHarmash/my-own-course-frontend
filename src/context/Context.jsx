@@ -41,23 +41,20 @@ export default function Context({ children }) {
         loggedInUser,
         // checkLoggedUser
     }
-
     // courses Context
 
     const coursesInit = async () => {
-        try{
-            await fetch("/courses", {
+        try {
+            const response = await fetch("/courses", {
                 method: "GET"
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const sortedData = data.sort((a, b) => a.id - b.id)
-                    setCoursesData(sortedData)
-                })
+            });
+            const data = await response.json();
+            const sortedData = data.sort((a, b) => a.id - b.id);
+            setCoursesData(sortedData);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
 
     const coursesValue = {
         coursesInit,

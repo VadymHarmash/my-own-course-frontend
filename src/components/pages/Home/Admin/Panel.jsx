@@ -12,9 +12,7 @@ export default function Panel({ styles }) {
         setParagraphs(newParagraphs);
     };
 
-    const handleCourseNameChange = (e) => {
-        setCourseName(e.target.value);
-    };
+    const handleCourseNameChange = (e) => setCourseName(e.target.value);
 
     const handleParagraphChange = (index, text) => {
         const newParagraphs = [...paragraphs];
@@ -24,7 +22,8 @@ export default function Panel({ styles }) {
 
     const courseData = {
         id: coursesContext?.coursesData.length + 1,
-        title: courseName
+        title: courseName,
+        paragraphs: paragraphs
     };
 
     const createCourse = async () => {

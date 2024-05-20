@@ -15,7 +15,8 @@ export default function Home() {
     const coursesContext = useContext(CoursesContext)
 
     useEffect(() => {
-        coursesContext?.coursesInit()
+        coursesContext.coursesInit()
+        console.log('a')
     }, [])
 
     useEffect(() => {

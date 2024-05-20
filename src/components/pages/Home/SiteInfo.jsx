@@ -29,7 +29,9 @@ export default function SiteInfo({ styles, loginContext, loading, activeText, ac
                         {activeText ? (
                             <>
                                 <h1>{activeText.title}</h1>
-                                <p>Вміст ...</p>
+                                {activeText.paragraphs.map((paragraph) => (
+                                    <p>{paragraph}</p>
+                                ))}
                                 {loginContext.loggedInUser.completedCourses.includes(activeCourse) ? (
                                     <p>Цей курс вже пройдено.</p>
                                 ) : (

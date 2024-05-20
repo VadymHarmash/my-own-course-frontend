@@ -4,6 +4,7 @@ import Home from '../components/pages/Home'
 import About from '../components/pages/About'
 import Statictics from '../components/pages/Statistics'
 import Support from '../components/pages/Support'
+import Error from '../components/pages/Error'
 
 export default function Router() {
     return (
@@ -12,6 +13,7 @@ export default function Router() {
             <Route path='/about' element={<About />} />
             <Route path='/statistics' element={<Statictics />} />
             <Route path='/support' element={<Support />} />
+            <Route path='*' element={<Error />} />
         </Routes>
     )
 }

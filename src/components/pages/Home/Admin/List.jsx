@@ -1,8 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { CoursesContext } from '../../../../context/Context'
+import ChangingModal from './ChangingModal'
 
 export default function List({ styles }) {
     const coursesContext = useContext(CoursesContext)
+    const [selectedCourse, setSelectedCourse] = useState(null)
 
     const handleDeleteCourse = (courseId) => {
         fetch(`/courses/${courseId}`, {
@@ -21,29 +23,43 @@ export default function List({ styles }) {
             })
     }
 
+    const handleEditCourse = (course) => {
+        setSelectedCourse(course)
+    }
+
+    const handleCloseModal = () => {
+        setSelectedCourse(null)
+    }
+
     return (
-        <table className={styles.home__admin__coursesList}>
-            <thead>
-                <tr>
-                    <th>Назва курсу</th>
-                    <th>Дії</th>
-                </tr>
-            </thead>
-            <tbody>
-                {coursesContext.coursesData.map((course) => (
-                    <tr key={course.id}>
-                        <td>{course.title}</td>
-                        <td>
-                            <button
-                                onClick={() => handleDeleteCourse(course._id)}
-                                className={styles.deleteButton}
-                            >
-                                Видалити
-                            </button>
-                        </td>
+        <>
+            <table className={styles.home__admin__coursesList}>
+                <thead>
+                    <tr>
+                        <th>Назва курсу</th>
+                        <th>Дії</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {coursesContext.coursesData.map((course) => (
+                        <tr key={course.id}>
+                            <td>{course.title}</td>
+                            <td className={styles.buttons}>
+                                <button onClick={() => handleDeleteCourse(course._id)}>Видалити</button>
+                                <button onClick={() => handleEditCourse(course)}>Редагувати</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            {selectedCourse && (
+                <div className={styles.modal}>
+                    <div className={styles.modalContent}>
+                        <button className={styles.closeButton} onClick={handleCloseModal}>Закрити</button>
+                    </div>
+                    <ChangingModal course={selectedCourse} />
+                </div>
+            )}
+        </>
     )
 }
