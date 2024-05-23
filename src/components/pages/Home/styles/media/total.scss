@@ -133,7 +133,7 @@ $white-color: #FFFFFF;
                     background-color: #f1f1f1;
                 }
 
-                tr .buttons{
+                tr .buttons {
                     display: flex;
                     gap: 10px;
                 }
@@ -205,6 +205,104 @@ $white-color: #FFFFFF;
                     background-color: $green-color;
                     color: $white-color;
                 }
+            }
+        }
+
+        &__paragraphs{
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    overflow-y: auto;
+    transition: opacity 0.3s;
+    z-index: 999;
+    backdrop-filter: blur(7px);
+    text-transform: uppercase;
+
+    &__wrapper {
+        position: absolute;
+        top: calc(50% - 300px);
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 600px;
+    }
+
+    &__content {
+        position: relative;
+        background-color: #FFFFFF;
+        border-radius: 20px 0 20px 0;
+        width: 100%;
+        max-width: 600px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+
+        &__close {
+            padding: 10px;
+            border: 2px solid $green-color;
+            border-radius: 20px 0 20px 0;
+            transition: all .3s;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $green-color;
+                color: $white-color;
+            }
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        label {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #fff;
+            min-height: 100px;
+            resize: vertical;
+        }
+        &__submit{
+            padding: 10px;
+            border: 2px solid $green-color;
+            border-radius: 20px 0 20px 0;
+            transition: all .3s;
+            cursor: pointer;
+
+            &:hover {
+                background-color: $green-color;
+                color: $white-color;
             }
         }
     }

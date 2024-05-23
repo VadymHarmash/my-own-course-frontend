@@ -29,13 +29,28 @@ export default function SiteInfo({ styles, loginContext, loading, activeText, ac
                         {activeText ? (
                             <>
                                 <h1>{activeText.title}</h1>
-                                {activeText.paragraphs.map((paragraph) => (
-                                    <p>{paragraph}</p>
-                                ))}
+                                <div className={styles.home__siteInfo__paragraphs}>
+                                    {activeText.paragraphs.map((paragraph, index) => (
+                                        <p key={index}>{paragraph}</p>
+                                    ))}
+                                </div>
                                 {loginContext.loggedInUser.completedCourses.includes(activeCourse) ? (
                                     <p>Цей курс вже пройдено.</p>
                                 ) : (
-                                    <button onClick={completeCourse}>Завершити курс</button>
+                                    <>
+                                        {activeText.testQuestions && activeText.testsAnswers && activeText.testQuestions.map((testQuestion, index) => (
+                                            <div key={index}>
+                                                <p>{testQuestion}</p>
+                                                {activeText.testsAnswers[index] && activeText.testsAnswers.map((testsAnswer, answerIndex) => (
+                                                    <label key={answerIndex}>
+                                                        <input type="radio" name={`answer_${index}`} value={testsAnswer} />
+                                                        {testsAnswer}
+                                                    </label>
+                                                ))}
+                                            </div>
+                                        ))}
+                                        <button onClick={completeCourse}>Завершити курс</button>
+                                    </>
                                 )}
                             </>
                         ) : (

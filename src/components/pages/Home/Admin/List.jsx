@@ -54,10 +54,15 @@ export default function List({ styles }) {
             </table>
             {selectedCourse && (
                 <div className={styles.modal}>
-                    <div className={styles.modalContent}>
-                        <button className={styles.closeButton} onClick={handleCloseModal}>Закрити</button>
+                    <div className={styles.modal__wrapper}>
+                        <div className={styles.modal__content}>
+                            <div className={styles.modal__header}>
+                                <h2>Панель для зміни тексту</h2>
+                                <button className={styles.modal__header__close} onClick={handleCloseModal}>Закрити</button>
+                            </div>
+                            <ChangingModal styles={styles} course={selectedCourse} handleCloseModal={handleCloseModal} />
+                        </div>
                     </div>
-                    <ChangingModal course={selectedCourse} />
                 </div>
             )}
         </>
